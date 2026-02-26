@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <style>
+        /* រចនាផ្ទៃខាងក្រោយ និងអក្សរ */
+        body { 
+            background-color: #ffebf0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            font-family: 'Khmer OS Battambang', sans-serif;
+            overflow: hidden;
+        }
+        .container { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            text-align: center;
+            width: 350px;
+        }
+        h1 { color: #d63384; font-size: 24px; }
+        .heart { color: #ff4d4d; font-size: 50px; animation: pulse 1s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        /* រចនាប៊ូតុង */
+        .btn-group { margin-top: 30px; position: relative; height: 60px; }
+        button { 
+            font-size: 18px; 
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            border: none; 
+            cursor: pointer; 
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        #yesBtn { background-color: #4CAF50; color: white; margin-right: 10px; }
+        #noBtn { background-color: #f44336; color: white; position: absolute; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="heart">❤️</div>
+    <h1>ព្រមធ្វើសង្សារខ្ញុំទេ?</h1>
+    <div class="btn-group">
+        <button id="yesBtn" onclick="celebrate()">ព្រម</button>
+        <button id="noBtn" onmouseover="moveButton()">មិនព្រម</button>
+    </div>
+</div>
+
+<script>
+    // មុខងារឱ្យប៊ូតុងរត់គេច
+    function moveButton() {
+        const btn = document.getElementById('noBtn');
+        // គណនាទីតាំងចៃដន្យក្នុងអេក្រង់
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+        
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+        btn.style.position = 'fixed';
+    }
+
+    // មុខងារពេលចុចលើពាក្យ "ព្រម"
+    function celebrate() {
+        alert("អរគុណដែលព្រមស្រឡាញ់ខ្ញុំ! សន្យាថានឹងមើលថែឱ្យល្អបំផុត 🥰❤️");
+        window.location.href = "https://www.google.com/search?q=happy+couple+images"; // ប្តូរទៅកាន់រូបភាពស្អាតៗ
+    }
+</script>
+
+</body>
+</html>
