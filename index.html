@@ -3,79 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do You Love Me?</title>
+    <title>សម្រាប់មនុស្សពិសេសរបស់បង</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        /* រចនាផ្ទៃខាងក្រោយ និងអក្សរ */
-        body { 
-            background-color: #ffebf0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
             font-family: 'Khmer OS Battambang', sans-serif;
             overflow: hidden;
-        }
-        .container { 
-            background: white; 
-            padding: 40px; 
-            border-radius: 30px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
             text-align: center;
-            width: 350px;
         }
-        h1 { color: #d63384; font-size: 24px; }
-        .heart { color: #ff4d4d; font-size: 50px; animation: pulse 1s infinite; }
-        @keyframes pulse {
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+            max-width: 80%;
+        }
+
+        h1 { color: #ff4d6d; font-size: 24px; margin-bottom: 30px; }
+
+        .btn-group {
+            position: relative;
+            height: 120px;
+            width: 100%;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Khmer OS Battambang';
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #noBtn {
+            background-color: #ffffff;
+            color: #ff4d6d;
+            border: 2px solid #ff4d6d;
+            position: absolute;
+        }
+
+        #loveMessage {
+            display: none;
+            font-size: 22px;
+            color: #d6336c;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
             0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-        /* រចនាប៊ូតុង */
-        .btn-group { margin-top: 30px; position: relative; height: 60px; }
-        button { 
-            font-size: 18px; 
-            padding: 12px 25px; 
-            border-radius: 50px; 
-            border: none; 
-            cursor: pointer; 
-            transition: 0.2s;
-            font-weight: bold;
-        }
-        #yesBtn { background-color: #4CAF50; color: white; margin-right: 10px; }
-        #noBtn { background-color: #f44336; color: white; position: absolute; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="heart">❤️</div>
-    <h1>ព្រមធ្វើសង្សារខ្ញុំទេ?</h1>
-    <div class="btn-group">
-        <button id="yesBtn" onclick="celebrate()">ព្រម</button>
-        <button id="noBtn" onmouseover="moveButton()">មិនព្រម</button>
-    </div>
-</div>
-
-<script>
-    // មុខងារឱ្យប៊ូតុងរត់គេច
-    function moveButton() {
-        const btn = document.getElementById('noBtn');
-        // គណនាទីតាំងចៃដន្យក្នុងអេក្រង់
-        const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
-        const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+    <div class="container" id="mainBox">
+        <h1 id="textDisplay">តើអូនដឹងទេថា អូនគឺជាពិភពលោកទាំងមូលរបស់បង? ✨</h1>
         
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
-        btn.style.position = 'fixed';
-    }
+        <div class="btn-group" id="actions">
+            <button id="yesBtn">ដឹងចា៎ ❤️</button>
+            <button id="noBtn">អត់ដឹងផង</button>
+        </div>
 
-    // មុខងារពេលចុចលើពាក្យ "ព្រម"
-    function celebrate() {
-        alert("អរគុណដែលព្រមស្រឡាញ់ខ្ញុំ! សន្យាថានឹងមើលថែឱ្យល្អបំផុត 🥰❤️");
-        window.location.href = "https://www.google.com/search?q=happy+couple+images"; // ប្តូរទៅកាន់រូបភាពស្អាតៗ
-    }
-</script>
+        <div id="loveMessage">
+            បងស្រឡាញ់អូនខ្លាំងណាស់! អរគុណដែលចូលមកក្នុងជីវិតបង 🥰<br>
+            <small>(បទចម្រៀងសម្រាប់អូន កំពុងបើក...)</small>
+        </div>
+    </div>
 
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const textDisplay = document.getElementById('textDisplay');
+        const loveMessage = document.getElementById('loveMessage');
+        const actions = document.getElementById('actions');
+
+        // ១. បង្កើត Logic ប៊ូតុងរត់គេចឱ្យពិបាកចាប់ជាងមុន
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
+
+        // ២. Logic ពេលចុច "យល់ព្រម" (Surprise!)
+        yesBtn.addEventListener('click', () => {
+            // បាញ់កាំជ្រួចក្រដាស
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ff758f', '#ffb3c1']
+            });
+
+            // លាក់ប៊ូតុង បង្ហាញសារផ្អែមល្ហែម
+            textDisplay.style.display = 'none';
+            actions.style.display = 'none';
+            loveMessage.style.display = 'block';
+            document.body.style.background = "#ffb3c1";
+
+            // ៣. បើកបទចម្រៀង YouTube ស្វ័យប្រវត្តិ
+            // បងអាចដូរលីង YouTube ខាងក្រោមនេះដាក់បទដែលបងចង់ឱ្យគាត់ស្តាប់
+            setTimeout(() => {
+                window.open("https://www.youtube.com/watch?v=L53gjP-ojGE", "_blank");
+            }, 2000);
+        });
+    </script>
 </body>
 </html>
